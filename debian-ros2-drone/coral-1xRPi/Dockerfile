@@ -25,5 +25,4 @@ RUN . /home/ros/ros2_ws/install/setup.sh && \
 # Copying entrypoint:
 COPY ./entrypoint.sh ./
 
-#ENTRYPOINT ["./entrypoint.sh"]
-CMD ["/bin/bash"]
+ENTRYPOINT ["./entrypoint.sh"]
