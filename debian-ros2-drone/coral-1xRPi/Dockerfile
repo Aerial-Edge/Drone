@@ -40,5 +40,6 @@ RUN . /home/ros/ros2_ws/install/setup.sh && \
 
 # Copying entrypoint:
 COPY ./entrypoint.sh ./
+RUN sudo chmod +x ./entrypoint.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
