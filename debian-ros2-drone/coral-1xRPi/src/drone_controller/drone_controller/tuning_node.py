@@ -42,7 +42,8 @@ class Tuner(Node):
 
         self.object_follower(x=msg_in.data[0], y=msg_in.data[1], distance=msg_in.data[2])
         msg_out = Int32MultiArray()
-        msg_out.data = [self.object_follower.yaw_out, self.object_follower.thrust_out, self.object_follower.pitch_out ]
+        #msg_out.data = [self.object_follower.yaw_out, self.object_follower.thrust_out, self.object_follower.pitch_out ]
+        msg_out.data = [0, self.object_follower.thrust_out, 0 ]
         self.publisher.publish(msg_out)
 
 
