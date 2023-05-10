@@ -12,7 +12,8 @@ from picamera2 import Picamera2
 
 
 #model ='../../share/img_processing/models/tennis_edgetpu.tflite'
-model ='/home/gruppe6/models/edl0_1k_edgetpu.tflite'
+#model ='/home/gruppe6/models/edl0_1k_edgetpu.tflite'
+model = '/home/ros/ros2_ws/src/img_processing/models/edl0_edgetpu.tflite'
 tpu_interpreter = tflite.Interpreter(model, experimental_delegates=[
     tflite.load_delegate('libedgetpu.so.1.0')])
 cpu_interpreter = tflite.Interpreter(model)
