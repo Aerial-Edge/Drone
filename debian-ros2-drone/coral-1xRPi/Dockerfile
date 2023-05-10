@@ -22,10 +22,15 @@ RUN wget https://archive.raspberrypi.org/debian/raspberrypi.gpg.key && \
     echo "deb [signed-by=/etc/apt/keyrings/raspberrypi-apt-key.gpg] http://archive.raspberrypi.org/debian/ bullseye main" | tee /etc/apt/sources.list.d/raspi.list && \
     rm raspberrypi.gpg.key && apt-get update && apt-get install -y python3-picamera2
 
-# Setting up video permissions:
-RUN usermod -aG video ros
+# Enabling udev:
 RUN apt-get update && sudo apt-get -y install udev
 ENV UDEV=on
+
+# Setting up video permissions:
+RUN usermod -aG video ros
+
+# Setting up Coral USB-accelerator permissions:
+RUN usermod -aG plugdev ros
 
 # Initializing packages:
 USER ros
@@ -41,10 +46,11 @@ COPY ./src/ ./
 # Building packages:
 WORKDIR /home/ros/ros2_ws/
 RUN . /home/ros/ros2_ws/install/setup.sh && \
-    colcon build --packages-select drone_pkg drone_controller img_processing --symlink-install
+    colcon build --packages-select drone_pkg drone_controller img_processing
 
 # Copying entrypoint:
 COPY ./entrypoint.sh ./
 RUN sudo chmod +x ./entrypoint.sh
+
 
 ENTRYPOINT ["./entrypoint.sh"]

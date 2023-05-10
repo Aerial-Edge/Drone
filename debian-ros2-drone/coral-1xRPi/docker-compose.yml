@@ -7,5 +7,7 @@ services:
     privileged: true
     group_add:
       - video
+      - plugdev
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /run/udev:/run/udev
