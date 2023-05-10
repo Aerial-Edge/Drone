@@ -22,6 +22,11 @@ RUN wget https://archive.raspberrypi.org/debian/raspberrypi.gpg.key && \
     echo "deb [signed-by=/etc/apt/keyrings/raspberrypi-apt-key.gpg] http://archive.raspberrypi.org/debian/ bullseye main" | tee /etc/apt/sources.list.d/raspi.list && \
     rm raspberrypi.gpg.key && apt-get update && apt-get install -y python3-picamera2
 
+# Setting up video permissions:
+RUN usermod -aG video ros
+RUN apt-get update && sudo apt-get -y install udev
+ENV UDEV=on
+
 # Initializing packages:
 USER ros
 WORKDIR	/home/ros/ros2_ws/src/

@@ -4,3 +4,8 @@ services:
   drone:  
     build: .
     network_mode: "host"
+    privileged: true
+    group_add:
+      - video
+    volumes:
+      - /run/udev:/run/udev
