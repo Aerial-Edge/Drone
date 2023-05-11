@@ -4,3 +4,9 @@ services:
   drone:
     build: .
     network_mode: "host"
+    privileged: true
+    group_add:
+      - video
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /run/udev:/run/udev

@@ -7,16 +7,30 @@ RUN pip install --extra-index-url=https://www.piwheels.org/simple numpy pymavlin
 # Installing pynput:
 RUN pip install pynput
 
-# Installing OpenCV:
-RUN pip install opencv-contrib-python cvzone
+# Installing CVZone:
+RUN pip install cvzone
 
-# Downloading OpenCV bridge pkg for ROS2:
-WORKDIR ~/ros2_ws/src/
-RUN git clone https://github.com/ros-perception/vision_opencv.git --branch humble
-WORKDIR  ~/ros2_ws/
-RUN colcon build --packages-select vision_opencv
+# Installing OpenCV:
+USER root
+RUN  apt-get update && apt-get -y install python3-opencv python3-cv-bridge
+
+# Installing PiCamera2:
+RUN mkdir /etc/apt/keyrings && \
+    wget https://archive.raspberrypi.org/debian/raspberrypi.gpg.key && \
+    gpg --no-default-keyring --keyring temp-keyring.gpg --import raspberrypi.gpg.key && \
+    gpg --no-default-keyring --keyring temp-keyring.gpg --export --output /etc/apt/keyrings/raspberrypi-apt-key.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/raspberrypi-apt-key.gpg] http://archive.raspberrypi.org/debian/ bullseye main" | tee /etc/apt/sources.list.d/raspi.list && \
+    rm raspberrypi.gpg.key && apt-get update && apt-get install -y python3-picamera2
+
+# Enabling udev:
+RUN apt-get update && apt-get -y install udev
+ENV UDEV=on
+
+# Setting up video permissions:
+RUN usermod -aG video ros
 
 # Initialize packages:
+USER ros
 WORKDIR ~/ros2_ws/src/
 RUN . /home/ros/ros2_ws/install/setup.sh && \
     ros2 pkg create --build-type ament_python --node-name autopilot_node drone_pkg && \
@@ -29,13 +43,11 @@ COPY ./src/ ./
 # Building packages:
 WORKDIR /home/ros/ros2_ws/
 RUN . /home/ros/ros2_ws/install/setup.sh && \
-    colcon build --packages-select drone_pkg drone_controller config4 --symlink-install
+    colcon build --packages-select drone_pkg drone_controller config4
 
 # Copying entrypoint:
 COPY ./entrypoint.sh ./
 RUN sudo chmod +x ./entrypoint.sh
 
-RUN sudo apt-get update && sudo apt-get -y install python3-opencv
-RUN sudo apt-get -y install python3-cv-bridge
 
 ENTRYPOINT ["./entrypoint.sh"]
