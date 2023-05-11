@@ -46,8 +46,7 @@ RUN . /home/ros/ros2_ws/install/setup.sh && \
     ros2 pkg create --build-type ament_python core && \
     ros2 pkg create --build-type ament_python img_processing && \
     ros2 pkg create --build-type ament_python qtm_logger && \
-    ros2 pkg create --build-type ament_python qualisys_node && \
-    ros2 pkg create --build-type ament_cmake pymavlink_msgs
+    ros2 pkg create --build-type ament_python qualisys_node
 
 # Copying package files:
 COPY ./src/ ./
@@ -62,5 +61,4 @@ COPY ./entrypoint.sh ./
 RUN sudo chmod +x ./entrypoint.sh
 
 
-#ENTRYPOINT ["./entrypoint.sh"]
-CMD ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
