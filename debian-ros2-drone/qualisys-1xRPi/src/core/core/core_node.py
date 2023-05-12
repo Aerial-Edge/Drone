@@ -20,7 +20,7 @@ class FollowAlgorithm(Node):
         self.create_subscription(DronePose, 'drone_pose', self.qualisys_callback, 10)
         self.distance = 0.0
         self.fig = plt.axes(projection='3d')
-        arrsize = 1000
+        arrsize = 3000
         self.drone_x_arr = np.zeros(arrsize)
         self.drone_y_arr = np.zeros(arrsize)
         self.drone_z_arr = np.zeros(arrsize)
