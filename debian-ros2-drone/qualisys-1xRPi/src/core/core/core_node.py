@@ -99,15 +99,17 @@ class FollowAlgorithm(Node):
             self.qualisys_z_arr[ndx] = z_qualisys
             #self.fig.scatter3D(x_drone, y_drone, z_drone, c=z_drone, cmap='Greens');
             #self.fig.scatter3D(x_qualisys, y_qualisys, z_qualisys, c=z_qualisys, cmap='Blues');
-            self.fig.Scatter(x_qualisys, y_qualisys, cmap='Greens')
-            self.fig.Scatter(x_drone, y_drone, cmap='Blues')
+            #self.fig.Scatter(x_qualisys, y_qualisys, cmap='Greens')
+            #self.fig.Scatter(x_drone, y_drone, cmap='Blues')
         else:
             self.save_plot()
 
     def save_plot(self):
         fig = plt.axes(projection='3d')
-        fig.scatter3D(self.drone_x_arr, self.drone_y_arr, self.drone_z_arr, c=self.qualisys_z_arr, cmap='Greens');
-        fig.scatter3D(self.qualisys_x_arr, self.qualisys_y_arr, self.qualisys_z_arr, c=self.qualisys_z_arr, cmap='Blues');
+        #fig.scatter3D(self.drone_x_arr, self.drone_y_arr, self.drone_z_arr, c=self.qualisys_z_arr, cmap='Greens');
+        #fig.scatter3D(self.qualisys_x_arr, self.qualisys_y_arr, self.qualisys_z_arr, c=self.qualisys_z_arr, cmap='Blues');
+        self.fig.Scatter(qualisys_x_arr, qualisys_y_arr, cmap='Greens')
+        self.fig.Scatter(drone_x_arr, drone_y_arr, cmap='Blues')
         plt.savefig("/home/ros/log/plot.png")
 
 
