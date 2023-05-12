@@ -46,19 +46,26 @@ RUN . /home/ros/ros2_ws/install/setup.sh && \
     ros2 pkg create --build-type ament_python qualisys_node
 
 # Copying package files:
-COPY ./src/ ./
+#COPY ./src/ ./
 
 # Building packages:
 WORKDIR /home/ros/ros2_ws/
 RUN . /home/ros/ros2_ws/install/setup.sh && \
-    colcon build --packages-select drone_pkg drone_controller config4 core qtm_logger qualisys_node pymavlink_msgs
-
-# Create log dir
-RUN mkdir -p /home/ros/Logs/logs
+    colcon build --packages-select drone_pkg drone_controller config4 core qtm_logger qualisys_node pymavlink_msgs --symlink-install
 
 # Copying entrypoint:
 COPY ./entrypoint.sh ./
 RUN sudo chmod +x ./entrypoint.sh
+
+# Log dir:
+RUN mkdir /home/ros/log
+RUN chmod 777 /home/ros/log
+
+# Create log dir for qualisys
+RUN mkdir -p /home/ros/Logs/logs
+
+# Copying package files v2
+COPY ./src/ ./
 
 
 ENTRYPOINT ["./entrypoint.sh"]

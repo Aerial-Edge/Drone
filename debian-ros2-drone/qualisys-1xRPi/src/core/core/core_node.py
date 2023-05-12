@@ -20,7 +20,7 @@ class FollowAlgorithm(Node):
         self.create_subscription(DronePose, 'drone_pose', self.qualisys_callback, 10)
         self.distance = 0.0
         self.fig = plt.axes(projection='3d')
-        arrsize = 3000
+        arrsize = 1000
         self.drone_x_arr = np.zeros(arrsize)
         self.drone_y_arr = np.zeros(arrsize)
         self.drone_z_arr = np.zeros(arrsize)
@@ -86,7 +86,7 @@ class FollowAlgorithm(Node):
             y_drone = np.cos(drone_pos[1])
             z_drone = drone_pos[2]
             x_qualisys = qualisys_pos[0]
-            y_qualisys = np_cos(qualisys_pos[1])
+            y_qualisys = np.cos(qualisys_pos[1])
             z_qualisys = qualisys_pos[2]
             ndx = self.counter
             self.counter += 1
@@ -97,10 +97,8 @@ class FollowAlgorithm(Node):
             self.qualisys_x_arr[ndx] = x_qualisys
             self.qualisys_y_arr[ndx] = y_qualisys
             self.qualisys_z_arr[ndx] = z_qualisys
-            #self.fig.scatter3D(x_drone, y_drone, z_drone, c=z_drone, cmap='Greens');
-            #self.fig.scatter3D(x_qualisys, y_qualisys, z_qualisys, c=z_qualisys, cmap='Blues');
-            self.fig.Scatter(x_qualisys, y_qualisys, cmap='Greens')
-            self.fig.Scatter(x_drone, y_drone, cmap='Blues')
+            self.fig.scatter3D(x_drone, y_drone, z_drone, c=z_drone, cmap='Greens');
+            self.fig.scatter3D(x_qualisys, y_qualisys, z_qualisys, c=z_qualisys, cmap='Blues');
         else:
             self.save_plot()
 

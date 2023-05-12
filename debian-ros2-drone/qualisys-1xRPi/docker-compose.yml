@@ -10,6 +10,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /run/udev:/run/udev
-#      - ./qualisys/logs:/home/ros/Logs/logs
-#      - ./mnt/src:/home/ros/ros2_ws/src
-      - ./log:/home/ros/log
+      - log:/home/ros/log
+
+volumes:
+  log:
