@@ -7,7 +7,8 @@ import xml.etree.ElementTree as ET
 import qtm
 import numpy as np
 from pymavlink_msgs.msg import DronePose
-from .utils.util import angle_diff, calculate_yaw
+#from .utils.util import angle_diff, calculate_yaw
+from .util import angle_diff, calculate_yaw
 import sys
 
 ###GLOBAL VARIABLES###
@@ -117,7 +118,7 @@ class Qualisys_node(Node):
         global prev_msg #we will use the last message to calculate velocity and rotation
         global prev_vel
         full_msg=True # flag to see if we can publish the message or not.
-        self.get_logger().info(f"yaw: {yaw}")
+        #self.get_logger().info(f"yaw: {yaw}")
 
         if (np.isnan(position).any()) or (position[0]==None) or yaw==None:
             return False,False
@@ -140,7 +141,7 @@ class Qualisys_node(Node):
                 vel_x=vel_f[0]
                 vel_y=vel_f[1]
                 vel_z=vel_f[2]
-                self.get_logger().info(f"vel_x: {vel_x}, vel_y: {vel_y}, vel_z: {vel_z}")
+                #self.get_logger().info(f"vel_x: {vel_x}, vel_y: {vel_y}, vel_z: {vel_z}")
             else:
                 a_x=None
                 a_y=None

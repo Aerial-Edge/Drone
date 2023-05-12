@@ -53,6 +53,9 @@ WORKDIR /home/ros/ros2_ws/
 RUN . /home/ros/ros2_ws/install/setup.sh && \
     colcon build --packages-select drone_pkg drone_controller config4 core qtm_logger qualisys_node pymavlink_msgs
 
+# Create log dir
+RUN mkdir -p /home/ros/Logs/logs
+
 # Copying entrypoint:
 COPY ./entrypoint.sh ./
 RUN sudo chmod +x ./entrypoint.sh
