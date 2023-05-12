@@ -97,8 +97,10 @@ class FollowAlgorithm(Node):
             self.qualisys_x_arr[ndx] = x_qualisys
             self.qualisys_y_arr[ndx] = y_qualisys
             self.qualisys_z_arr[ndx] = z_qualisys
-            self.fig.scatter3D(x_drone, y_drone, z_drone, c=z_drone, cmap='Greens');
-            self.fig.scatter3D(x_qualisys, y_qualisys, z_qualisys, c=z_qualisys, cmap='Blues');
+            #self.fig.scatter3D(x_drone, y_drone, z_drone, c=z_drone, cmap='Greens');
+            #self.fig.scatter3D(x_qualisys, y_qualisys, z_qualisys, c=z_qualisys, cmap='Blues');
+            self.fig.Scatter(x_qualisys, y_qualisys, cmap='Greens')
+            self.fig.Scatter(x_drone, y_drone, cmap='Blues')
         else:
             self.save_plot()
 
