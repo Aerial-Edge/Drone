@@ -94,7 +94,7 @@ while(True):
     record_fps(fps)
     if time.time() > start_time + 30 and not printed:
         df = pd.DataFrame({'Time': time_array, 'FPS': fps_array})
-        df.to_csv('/root/logs/fps_data_edl0.csv', index=False)
+        df.to_csv('/root/logs/fps_data_edl1.csv', index=False)
         printed = True
         print("done")
 
