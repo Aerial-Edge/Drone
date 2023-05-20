@@ -1,0 +1,15 @@
+
+version: "3.8"
+
+services:
+  benchmark:
+    build: .
+    privileged: true
+    #group_add:
+    #  - video
+    #  - plugdev
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /run/udev:/run/udev
+      - /etc/udev:/etc/udev
+      - ./logs:/root/logs
